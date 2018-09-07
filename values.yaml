@@ -1,0 +1,49 @@
+scheduler:
+  image:
+    repository: "daskdev/dask"
+    tag: 0.19.1
+  resources:
+    limits:
+      cpu: 1.8
+      memory: 6G
+    requests:
+      cpu: 1.8
+      memory: 6G
+
+worker:
+  image:
+    repository: "daskdev/dask"
+    tag: 0.19.1
+  replicas: 10
+  resources:
+    limits:
+      cpu: 4
+      memory: 12.8G
+    requests:
+      cpu: 3.5
+      memory: 12.8G
+  env:
+    - name: EXTRA_PIP_PACKAGES
+      value: gcsfs dask-ml --upgrade
+    - name: EXTRA_CONDA_PACKAGES
+      value: fastparquet scikit-image
+    - name: DASK_WORKER_MEMORY_TARGET
+      value: "1.0"
+
+jupyter:
+  image:
+    repository: "daskdev/dask-notebook"
+    tag: 0.19.1
+  password: 'sha1:aae8550c0a44:9507d45e087d5ee481a5ce9f4f16f37a0867318c'  # 'dask'
+  resources:
+    limits:
+      cpu: 2
+      memory: 6G
+    requests:
+      cpu: 2
+      memory: 6G
+  env:
+    - name: EXTRA_PIP_PACKAGES
+      value: gcsfs dask-ml seaborn --upgrade
+    - name: EXTRA_CONDA_PACKAGES
+      value: fastparquet scikit-image```
