@@ -1,7 +1,7 @@
 scheduler:
   image:
     repository: "daskdev/dask"
-    tag: 0.19.1
+    tag: latest
   resources:
     limits:
       cpu: 1.8
@@ -9,12 +9,19 @@ scheduler:
     requests:
       cpu: 1.8
       memory: 6G
+  env:
+    - name: EXTRA_PIP_PACKAGES
+      value: xgboost git+https://github.com/dask/dask-xgboost --upgrade
+    - name: EXTRA_CONDA_PACKAGES
+      value: fastparquet scikit-image
+    - name: DASK_WORKER_MEMORY_TARGET
+      value: "1.0"
 
 worker:
   image:
     repository: "daskdev/dask"
-    tag: 0.19.1
-  replicas: 10
+    tag: latest
+  replicas: 1
   resources:
     limits:
       cpu: 4
@@ -24,7 +31,7 @@ worker:
       memory: 12.8G
   env:
     - name: EXTRA_PIP_PACKAGES
-      value: gcsfs dask-ml --upgrade
+      value: gcsfs dask-ml tpot xgboost git+https://github.com/dask/dask-xgboost --upgrade
     - name: EXTRA_CONDA_PACKAGES
       value: fastparquet scikit-image
     - name: DASK_WORKER_MEMORY_TARGET
@@ -33,7 +40,7 @@ worker:
 jupyter:
   image:
     repository: "daskdev/dask-notebook"
-    tag: 0.19.1
+    tag: latest
   password: 'sha1:aae8550c0a44:9507d45e087d5ee481a5ce9f4f16f37a0867318c'  # 'dask'
   resources:
     limits:
@@ -44,6 +51,6 @@ jupyter:
       memory: 6G
   env:
     - name: EXTRA_PIP_PACKAGES
-      value: gcsfs dask-ml seaborn --upgrade
+      value: gcsfs dask-ml tpot xgboost git+https://github.com/dask/dask-xgboost seaborn --upgrade
     - name: EXTRA_CONDA_PACKAGES
-      value: fastparquet scikit-image```
+      value: fastparquet scikit-image
