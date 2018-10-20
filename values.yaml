@@ -10,10 +10,8 @@ scheduler:
       cpu: 1.8
       memory: 6G
   env:
-    - name: EXTRA_PIP_PACKAGES
-      value: xgboost git+https://github.com/dask/dask-xgboost --upgrade
     - name: EXTRA_CONDA_PACKAGES
-      value: fastparquet scikit-image
+      value: -c conda-forge gcsfs fastparquet dask-ml
     - name: DASK_WORKER_MEMORY_TARGET
       value: "1.0"
 
@@ -21,7 +19,7 @@ worker:
   image:
     repository: "daskdev/dask"
     tag: latest
-  replicas: 1
+  replicas: 10
   resources:
     limits:
       cpu: 4
@@ -30,10 +28,8 @@ worker:
       cpu: 3.5
       memory: 12.8G
   env:
-    - name: EXTRA_PIP_PACKAGES
-      value: gcsfs dask-ml tpot xgboost git+https://github.com/dask/dask-xgboost --upgrade
     - name: EXTRA_CONDA_PACKAGES
-      value: fastparquet scikit-image
+      value: -c conda-forge gcsfs fastparquet dask-ml
     - name: DASK_WORKER_MEMORY_TARGET
       value: "1.0"
 
@@ -50,7 +46,6 @@ jupyter:
       cpu: 2
       memory: 6G
   env:
-    - name: EXTRA_PIP_PACKAGES
-      value: gcsfs dask-ml tpot xgboost git+https://github.com/dask/dask-xgboost seaborn --upgrade
     - name: EXTRA_CONDA_PACKAGES
-      value: fastparquet scikit-image
+      value: fastparquet
+      value: matplotlib gcsfs conda-forge::tpot conda-forge::fastparquet conda-forge::dask-ml
