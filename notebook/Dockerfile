@@ -9,19 +9,21 @@ USER $NB_USER
 
 RUN conda update conda
 RUN conda install --yes \
-    python-blosc \
+    blosc==1.14.4 \
+    python-blosc==1.5.1 \
     cytoolz \
-    dask==0.19.2 \
+    dask==0.19.4 \
     nomkl \
     numpy==1.15.1 \
     pandas==0.23.4 \
     ipywidgets \
-    jupyterlab==0.34.7 \
+    jupyterlab==0.35.1 \
     conda-forge::dask-ml \
     conda-forge::tpot \
     py-xgboost \
     fastparquet \
     gcsfs \
+    matplotlib \
     && conda clean -tipsy
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager dask-labextension
 

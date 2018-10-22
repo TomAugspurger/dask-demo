@@ -6,9 +6,10 @@ RUN chmod +x /usr/local/bin/dumb-init
 
 RUN conda update conda
 RUN conda install --yes \
-    python-blosc \
+    blosc==1.14.4 \
+    python-blosc==1.5.1 \
     cytoolz \
-    dask==0.19.2 \
+    dask==0.19.4 \
     nomkl \
     numpy==1.15.1 \
     pandas==0.23.4 \
@@ -19,7 +20,8 @@ RUN conda install --yes \
     gcsfs \
     && conda clean -tipsy
 
-RUN pip install --no-cache-dir --no-deps git+https://github.com/dask/dask-xgboost
+RUN pip install --no-cache-dir --no-deps \
+    git+https://github.com/dask/dask-xgboost
 
 COPY prepare.sh /usr/bin/prepare.sh
 RUN chmod +x /usr/bin/prepare.sh
