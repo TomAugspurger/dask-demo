@@ -1,6 +1,6 @@
 scheduler:
   image:
-    repository: "daskdev/dask"
+    repository: "gcr.io/dask-demo-182016/dask-tutorial-worker"
     tag: latest
   resources:
     limits:
@@ -10,14 +10,12 @@ scheduler:
       cpu: 1.8
       memory: 6G
   env:
-    - name: EXTRA_CONDA_PACKAGES
-      value: -c conda-forge gcsfs fastparquet dask-ml
     - name: DASK_WORKER_MEMORY_TARGET
       value: "1.0"
 
 worker:
   image:
-    repository: "daskdev/dask"
+    repository: "gcr.io/dask-demo-182016/dask-tutorial-worker"
     tag: latest
   replicas: 10
   resources:
@@ -28,14 +26,12 @@ worker:
       cpu: 3.5
       memory: 12.8G
   env:
-    - name: EXTRA_CONDA_PACKAGES
-      value: -c conda-forge gcsfs fastparquet dask-ml
     - name: DASK_WORKER_MEMORY_TARGET
       value: "1.0"
 
 jupyter:
   image:
-    repository: "daskdev/dask-notebook"
+    repository: "gcr.io/dask-demo-182016/dask-tutorial-notebook"
     tag: latest
   password: 'sha1:aae8550c0a44:9507d45e087d5ee481a5ce9f4f16f37a0867318c'  # 'dask'
   resources:
@@ -45,7 +41,3 @@ jupyter:
     requests:
       cpu: 2
       memory: 6G
-  env:
-    - name: EXTRA_CONDA_PACKAGES
-      value: fastparquet
-      value: matplotlib gcsfs conda-forge::tpot conda-forge::fastparquet conda-forge::dask-ml

@@ -3,7 +3,9 @@ FROM daskdev/dask-notebook
 RUN conda install \
     conda-forge::dask-ml \
     conda-forge::tpot \
-    py-xgboost
+    py-xgboost \
+    fastparquet \
+    gcsfs
 
 RUN pip install --no-cache-dir --no-deps git+https://github.com/dask/dask-xgboost
 
