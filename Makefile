@@ -16,7 +16,7 @@ cluster:
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
-	    --enable-autoscaling --min-nodes=0 --max-nodes=10
+	    --enable-autoscaling --min-nodes=0 --max-nodes=50
 
 helm:
 	kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$(cluster_admin)
@@ -47,3 +47,13 @@ delete-helm:
 
 delete-cluster:
 	gcloud container clusters delete $(cluster_name) --zone=$(zone)
+
+
+docker-%: %/Dockerfile
+	gcloud container builds submit \
+		--tag gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
+		--timeout=1h \
+		$(patsubst %/,%,$(dir $<))
+	gcloud container images add-tag \
+		gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
+		gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):latest --quiet
