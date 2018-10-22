@@ -33,7 +33,7 @@ dask:
 		--namespace=$(name)
 
 upgrade:
-	helm upgrade $(name) helm-chart/dask \
+	helm upgrade $(name) stable/dask \
 		-f $(config)
 
 print-ip:

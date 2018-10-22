@@ -1,7 +1,7 @@
 scheduler:
   image:
     repository: "gcr.io/dask-demo-182016/dask-tutorial-worker"
-    tag: latest
+    tag: "2c5045"
   resources:
     limits:
       cpu: 1.8
@@ -16,7 +16,7 @@ scheduler:
 worker:
   image:
     repository: "gcr.io/dask-demo-182016/dask-tutorial-worker"
-    tag: latest
+    tag: "2c5045"
   replicas: 10
   resources:
     limits:
@@ -32,7 +32,7 @@ worker:
 jupyter:
   image:
     repository: "gcr.io/dask-demo-182016/dask-tutorial-notebook"
-    tag: latest
+    tag: "2c5045"
   password: 'sha1:aae8550c0a44:9507d45e087d5ee481a5ce9f4f16f37a0867318c'  # 'dask'
   resources:
     limits:
