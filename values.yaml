@@ -1,7 +1,7 @@
 scheduler:
   image:
-    repository: "gcr.io/dask-demo-182016/dask-tutorial-worker"
-    tag: "2c5045"
+    repository: "gcr.io/dask-demo-182016/dask-tutorial-notebook"
+    tag: a71a6a
   resources:
     limits:
       cpu: 1.8
@@ -12,11 +12,13 @@ scheduler:
   env:
     - name: DASK_WORKER_MEMORY_TARGET
       value: "1.0"
+    # - name: EXTRA_PIP_PACKAGES
+    #   value: "dask-ml gcsfs tornado==5.1.1 pyarrow"
 
 worker:
   image:
-    repository: "gcr.io/dask-demo-182016/dask-tutorial-worker"
-    tag: "2c5045"
+    repository: "gcr.io/dask-demo-182016/dask-tutorial-notebook"
+    tag: a71a6a
   replicas: 10
   resources:
     limits:
@@ -32,7 +34,7 @@ worker:
 jupyter:
   image:
     repository: "gcr.io/dask-demo-182016/dask-tutorial-notebook"
-    tag: "2c5045"
+    tag: a71a6a
   password: 'sha1:aae8550c0a44:9507d45e087d5ee481a5ce9f4f16f37a0867318c'  # 'dask'
   resources:
     limits:
