@@ -7,7 +7,7 @@ cluster_admin ?= taugspurger@anaconda.com
 # GCP settings
 project_id ?= dask-demo-182016
 zone ?= us-central1-b
-num_nodes ?= 3
+num_nodes ?= 13
 machine_type ?= n1-standard-4
 
 cluster:
